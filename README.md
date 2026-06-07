@@ -1,16 +1,24 @@
-# nightshift-107-geargraft
+# GearGraft
 
-React 19 app with Vite, TypeScript, Tailwind CSS v4, wallet-ui, and Solana Kit.
+GearGraft is Nightshift build 107: a dark-mode Solana game cosmetic/equipment crafting workbench for playable equipment skin NFTs. Players tune a base, finish, rune, catalyst, and palette to produce deterministic SVG/JSON metadata, then mint a wallet-owned MPL Core devnet asset from the connected client wallet.
 
-## Features
+Live target: https://geargraft107.colmena.dev
 
-- React 19 with Vite 7
-- Solana wallet playground with Wallet Standard support
-- Solana Devnet, Localnet, and Testnet cluster switching
-- Tailwind CSS v4 and `tw-animate-css`
-- TypeScript with strict checking
-- shadcn/ui primitives powered by Base UI and Lucide icons
-- System-aware light and dark theme support with persisted preference
+## Challenge Ref
+
+- Build id: 107
+- Project: GearGraft
+- Primary actor: player/cosmetic designer
+- Secondary actor: creator/operator tuning recipe constraints and supply readiness
+- Date: 2026-06-07 UTC
+- Agent/model: Codex / GPT-5 implementation coding agent
+
+## Capabilities
+
+- Craft bench with deterministic SVG preview, rarity, stats, stability/risk, and compatibility.
+- Operator rule rack for forge heat, material stock, quality floor, season, and signature requirements.
+- First-party JSON/SVG/data URI metadata preview plus verifier fields for owner, asset, signature, and devnet explorer links.
+- Client-side wallet path using `@wallet-ui/react`, `@solana/kit`, React Query async mint state, and `@obrera/mpl-core-kit-lib@0.0.3` generated MPL Core create asset instruction APIs.
 
 ## Development
 
@@ -19,33 +27,35 @@ bun install
 bun run dev
 ```
 
-Open `http://localhost:5173` to view the app.
+Open http://localhost:5173.
 
-## Commands
+## Verification
+
+```bash
+bun run lint:fix
+bun run check-types
+bun run build
+rg '@solana/web3.js|@solana/wallet-adapter-react|Buffer' src package.json
+```
+
+Expected forbidden dependency/source scan result: no matches.
+
+## Deployment
+
+The app builds with Vite and is served by `server.ts` using Bun with SPA fallback and `/healthz`.
 
 ```bash
 bun run build
-bun run ci
-bun run lint
-bun run lint:fix
-bun run preview
-bun run check-types
+bun run serve
 ```
 
-## Adding Components
-
-Use the shadcn CLI to scaffold more UI primitives:
+Docker deployment:
 
 ```bash
-bunx --bun shadcn@latest add button
+docker build -t geargraft107 .
+docker run --rm -p 3000:3000 geargraft107
 ```
 
-Generated components are written to `src/components/ui`.
+## Notes
 
-## Usage
-
-Import components from the `@/components` alias:
-
-```tsx
-import { Button } from '@/components/ui/button'
-```
+Minting requires a connected Solana devnet wallet with enough devnet SOL for fees. The connected wallet is the owner/signer; no server mint path is implemented.

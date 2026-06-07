@@ -11,11 +11,11 @@ export interface HeaderLink {
 }
 export function ShellUiHeader({ links }: { links: HeaderLink[] }) {
   return (
-    <header className="border-b border-border/60 bg-background px-4 py-3">
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4">
+    <header className="border-b border-cyan-300/20 bg-[#07090b]/95 px-4 py-3 text-zinc-100 backdrop-blur">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4">
         <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:gap-8">
-          <Link className="text-xl font-semibold tracking-tight" to="/">
-            Nightshift 107 Geargraft
+          <Link className="text-xl font-black tracking-tight text-cyan-100" to="/">
+            GearGraft
           </Link>
           <nav aria-label="Primary" className="flex flex-wrap items-center gap-4">
             {links.map((link) => (
@@ -23,7 +23,7 @@ export function ShellUiHeader({ links }: { links: HeaderLink[] }) {
                 className={({ isActive }) =>
                   cn(
                     'border-b-2 border-transparent px-1 py-2 text-sm font-medium transition-colors',
-                    isActive ? 'border-foreground text-foreground' : 'text-muted-foreground hover:text-foreground',
+                    isActive ? 'border-orange-300 text-zinc-50' : 'text-zinc-400 hover:text-cyan-100',
                   )
                 }
                 key={link.to}

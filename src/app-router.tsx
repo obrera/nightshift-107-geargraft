@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from 'react-router'
+import { createBrowserRouter } from 'react-router'
 
 import type { ShellNotFoundProps } from '@/shell/data-access/shell-not-found-props'
 
@@ -8,7 +8,10 @@ export const appRouter = createBrowserRouter(
   [
     {
       children: [
-        { element: <Navigate replace to="/wallet" />, index: true },
+        {
+          index: true,
+          lazy: () => import('@/geargraft/feature/geargraft-feature-workbench'),
+        },
         {
           lazy: () => import('@/about/feature/about-feature'),
           path: 'about',
@@ -22,9 +25,9 @@ export const appRouter = createBrowserRouter(
           loader: (): ShellNotFoundProps => ({
             links: [
               {
-                description: 'Learn what this starter includes and how the wallet playground is organized.',
-                title: 'About',
-                to: '/about',
+                description: 'Open the GearGraft forge workbench for recipe crafting and MPL Core minting.',
+                title: 'GearGraft',
+                to: '/',
               },
               {
                 description: 'Open the wallet screen if you were looking for connection and signing tools.',
@@ -39,6 +42,7 @@ export const appRouter = createBrowserRouter(
       element: (
         <ShellFeature
           links={[
+            { label: 'Workbench', to: '/' },
             { label: 'Wallet', to: '/wallet' },
             { label: 'About', to: '/about' },
           ]}
